@@ -1,4 +1,4 @@
-# app/repositories/usuario_repo.py
+ # app/repositories/usuario_repo.py
 from sqlalchemy.orm import Session
 from app.models.usuario import Usuario
 
