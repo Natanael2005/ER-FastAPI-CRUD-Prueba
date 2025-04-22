@@ -10,7 +10,7 @@ def get_usuarios(db: Session, skip: int = 0, limit: int = 100):
 
 def create_usuario(db: Session, usuario: Usuario):
     db.add(usuario)
-    db.commit()
+    db.commit() 
     db.refresh(usuario)
     return usuario
 

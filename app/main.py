@@ -1,16 +1,19 @@
-# app/main.py
 from fastapi import FastAPI
 from app.controllers import usuario_controller
-from app.database import engine, Base
-import app.models  # Se asegura de que todos los modelos se importen para la creación de tablas
+from app.database import DatabaseConnectionPool, Base
 
-# Crear las tablas en la base de datos PostgreSQL
-Base.metadata.create_all(bind=engine)
+# Crear tablas en la base de datos usando el engine del Singleton
+pool = DatabaseConnectionPool()
+Base.metadata.create_all(bind=pool.engine)
 
-app = FastAPI(title="Proyecto Backend con FastAPI")
+app = FastAPI(title="Proyecto Backend con FastAPI y PostgreSQL")
 
-# Incluir el router de usuario con el prefijo /usuarios
-app.include_router(usuario_controller.router, prefix="/usuarios", tags=["Usuarios"])
+# Montamos el router de usuarios bajo /usuarios
+app.include_router(
+    usuario_controller.router,
+    prefix="/usuarios",
+    tags=["Usuarios"]
+)
 
 if __name__ == "__main__":
     import uvicorn
