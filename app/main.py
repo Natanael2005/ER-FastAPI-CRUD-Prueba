@@ -3,8 +3,8 @@ from app.controllers import usuario_controller
 from app.database import DatabaseConnectionPool, Base
 
 # Crear tablas en la base de datos usando el engine del Singleton
-pool = DatabaseConnectionPool()
-Base.metadata.create_all(bind=pool.engine)
+db_pool = DatabaseConnectionPool()
+Base.metadata.create_all(bind=db_pool.engine)
 
 app = FastAPI(title="Proyecto Backend con FastAPI y PostgreSQL")
 
